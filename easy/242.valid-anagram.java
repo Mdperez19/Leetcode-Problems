@@ -15,23 +15,27 @@ class Solution {
         if(s.length() != t.length())
             return false;
 
-        List<Character> sCharacters = s.chars()
-                                        .mapToObj(i -> (char) i)
-                                        .collect(Collectors.toList());
+        int[] characters = new int[26];
 
-        List<Character> tCharacters = t.chars()
-                                        .mapToObj(i -> (char) i)
-                                        .collect(Collectors.toList());
+        for(int i=0; i < s.length(); i++){
+            characters[s.charAt(i) % 26]++;
+            characters[t.charAt(i) % 26]--;
+        }
 
-        sCharacters.sort(Comparator.naturalOrder());
-        tCharacters.sort(Comparator.naturalOrder());
+        for(int i=0; i < characters.length; i++){
+            if(characters[i] != 0)
+                return false;
+        }
 
-        System.out.println(sCharacters);
-        System.out.println(tCharacters);
-        
-        return sCharacters.equals(tCharacters);
-
+        return true;
     }
 }
 // @lc code=end
+
+/*
+ r c
+
+ r c t
+  
+ */
 
