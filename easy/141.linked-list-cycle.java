@@ -3,7 +3,6 @@
  *
  * [141] Linked List Cycle
  */
-import java.util.*;
 class ListNode {
      int val;
       ListNode next;
@@ -26,18 +25,17 @@ class ListNode {
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        Set<ListNode> nodes = new HashSet<>();
 
-        ListNode currentNode = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (currentNode != null) {
-            if(nodes.contains(currentNode))
+        while (fast !=null && fast.next !=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if(slow == fast)
                 return true;
-            else
-                nodes.add(currentNode);
-            currentNode = currentNode.next;
         }
-
         return false;
     }
 }
