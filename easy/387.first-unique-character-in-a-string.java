@@ -39,13 +39,13 @@ class Solution {
             }
         }
 
-        return lettersMap.values().stream().sorted(
-            Comparator.comparing(PositionFrequency::getIndex)
-        ).filter(a -> a.getFrequency()==1)
-        .findFirst()
-        .map(PositionFrequency::getIndex)
-        .orElse(-1);
+        for (int i = 0; i < s.length(); i++) {
+            char letter = s.charAt(i);
+            if(lettersMap.get(letter).getFrequency() == 1)
+                return lettersMap.get(letter).getIndex();
+        }
 
+        return -1;
     }
 }
 // @lc code=end
