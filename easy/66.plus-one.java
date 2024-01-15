@@ -13,9 +13,8 @@ class Solution {
 
         int carry = 0;
 
-        Deque<Integer> digitsResult = new ArrayDeque<>();
+        List<Integer> digitsResult = new ArrayList<>();
 
-    
         int sum = digits[digits.length-1]+1;
 
         if(sum>=10){
@@ -24,7 +23,7 @@ class Solution {
         }else
             carry = 0;
 
-        digitsResult.addFirst(sum);
+        digitsResult.add(sum);
 
         for (int i = digits.length-2 ; i>=0 ; i--) {
             
@@ -35,16 +34,20 @@ class Solution {
             }else
                 carry = 0;
                 
-            digitsResult.addFirst(sum);
+            digitsResult.add(sum);
         }
 
-        if(carry == 1)
-            digitsResult.addFirst(1);
+        if(carry == 1){
+            digitsResult.add(1);
+        }
+
+        int[] arrayResult = new int[digitsResult.size()];
+        for (int i = digitsResult.size()-1; i>=0; i--) {
+            arrayResult[digitsResult.size()-i-1] = digitsResult.get(i);
+        }
 
 
-        return digitsResult.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
+        return arrayResult;
     }
 }
 // @lc code=end
