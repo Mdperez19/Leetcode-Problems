@@ -9,14 +9,20 @@ class Solution {
     public int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];
 
-        for (int i = 0; i < numbers.length; i++) {
-            result[0] = i;
-            result[1] = Arrays.binarySearch(numbers, i+1, numbers.length,  target - numbers[i] );
+        int left = 0;
+        int right = numbers.length - 1;
 
-            if(result[1] > 0){
-                result[0]++;
-                result[1]++;
+        while (left < right) {
+            int possibleResult = numbers[left] + numbers[right];
+
+            if(possibleResult == target){
+                result[0] = left+1;
+                result[1] = right+1;
                 break;
+            } else if (possibleResult > target){
+                left++;
+            } else{
+                right--;
             }
         }
 
