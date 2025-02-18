@@ -7,35 +7,36 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        Map<Character, Integer> lettersFromMagazineMap = new HashMap<>();
-        int numberOfLettersInNote = ransomNote.length();
+        Map<Character, Integer> lettersFromNoteMap = new HashMap<>();
 
-        for (int i = 0; i < magazine.length(); i++) {
-            char curentLetter = magazine.charAt(i);
-            lettersFromMagazineMap.put(
-                curentLetter, 
-                lettersFromMagazineMap.getOrDefault(curentLetter, 0) + 1
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char currentLetter = ransomNote.charAt(i);
+            lettersFromNoteMap.put(
+                currentLetter, 
+                lettersFromNoteMap.getOrDefault(currentLetter, 0) + 1
             );
         }
 
-        for (int i = 0; i < ransomNote.length(); i++) {
-            char curentLetter = ransomNote.charAt(i);
+        for (int i = 0; i < magazine.length(); i++) {
 
-            if(lettersFromMagazineMap.containsKey(curentLetter)){
+            char currentLetter = magazine.charAt(i);
 
-                if(lettersFromMagazineMap.get(curentLetter) == 0)
-                    return false;
-                
-                lettersFromMagazineMap.computeIfPresent(
-                    curentLetter, 
-                    (key, value) -> value-1
+            if(lettersFromNoteMap.containsKey(currentLetter)){
+                lettersFromNoteMap.compute(currentLetter, 
+                    (key,value) -> value - 1
                 );
 
-                numberOfLettersInNote--;
+                if(lettersFromNoteMap.get(currentLetter) == 0)
+                    lettersFromNoteMap.remove(currentLetter);
+
+                if(lettersFromNoteMap.isEmpty())
+                    return true;
             }
+
+            
         }
 
-        return numberOfLettersInNote == 0 ? true: false;
+        return false;
     }
 }
 // @lc code=end
