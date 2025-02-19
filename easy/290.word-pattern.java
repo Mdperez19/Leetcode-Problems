@@ -9,7 +9,6 @@ class Solution {
     public boolean wordPattern(String pattern, String s) {
 
         Map<Character,String> mapPattern = new HashMap<>();
-        Set<String> uniqueWord= new HashSet<>();
 
         String[] words = s.split(" ");
 
@@ -25,11 +24,11 @@ class Solution {
                 if(!mapPattern.get(letter).equals(words[i]))
                     return false;
 
-            }else if(!uniqueWord.contains(words[i])){
-                mapPattern.put(letter, words[i]);
-                uniqueWord.add(words[i]);
-            }else 
+            }else if(mapPattern.containsValue(words[i])){
                 return false;
+            }
+            else 
+                mapPattern.put(letter, words[i]);
         }
 
         return true;
