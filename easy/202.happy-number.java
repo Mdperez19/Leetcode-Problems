@@ -13,11 +13,13 @@ class Solution {
         if(n == 1)
             return true;
         
-        char[] digits = String.valueOf(n).toCharArray();
-
+        int digit = 1;
         int result = 0;
-        for (char c : digits) {
-            result += operations[c - '0'];
+        
+        while(digit>0){
+            digit = n % 10;
+            result += operations[digit];
+            n = n/10;
         }
 
         if(!results.add(result))
